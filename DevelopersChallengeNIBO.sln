@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevelopersChallengeNIBO", "DevelopersChallengeNIBO.csproj", "{116F8138-433B-4CBC-A8D6-B63405D4A910}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevelopersChallengeNIBO", "DevelopersChallengeNIBO.csproj", "{116F8138-433B-4CBC-A8D6-B63405D4A910}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OFX", "OFX", "{3111DB17-2541-4171-B082-A2DB1B27E861}"
+	ProjectSection(SolutionItems) = preProject
+		OFX Files\extrato1.ofx = OFX Files\extrato1.ofx
+		OFX Files\extrato2.ofx = OFX Files\extrato2.ofx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

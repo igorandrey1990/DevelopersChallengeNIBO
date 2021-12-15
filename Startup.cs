@@ -1,12 +1,13 @@
+using DevelopersChallengeNIBO.Interfaces.Database;
+using DevelopersChallengeNIBO.Interfaces.Services;
+using DevelopersChallengeNIBO.Models.Database;
+using DevelopersChallengeNIBO.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace DevelopersChallengeNIBO
 {
@@ -22,6 +23,15 @@ namespace DevelopersChallengeNIBO
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // requires using Microsoft.Extensions.Options
+            services.Configure<OFXRecordsDatabaseSettings>(
+                Configuration.GetSection(nameof(OFXRecordsDatabaseSettings)));
+
+            services.AddSingleton<IOFXRecordsDBSettings>(sp =>
+                sp.GetRequiredService<IOptions<OFXRecordsDatabaseSettings>>().Value);
+
+            services.AddSingleton<IOFXRecordsService, OFXRecordsService>();
+
             services.AddControllersWithViews();
         }
 

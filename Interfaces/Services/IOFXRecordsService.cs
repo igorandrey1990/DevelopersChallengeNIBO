@@ -17,6 +17,8 @@ namespace DevelopersChallengeNIBO.Interfaces.Services
 
         public void Remove(string id);
 
+        public void DeleteAll();
+
         public void ImportOFX(string OFXFilepath);
     }
 }

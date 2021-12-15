@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Vereyon.Web;
 
 namespace DevelopersChallengeNIBO
 {
@@ -31,6 +32,8 @@ namespace DevelopersChallengeNIBO
                 sp.GetRequiredService<IOptions<OFXRecordsDatabaseSettings>>().Value);
 
             services.AddSingleton<IOFXRecordsService, OFXRecordsService>();
+
+            services.AddFlashMessage();
 
             services.AddControllersWithViews();
         }

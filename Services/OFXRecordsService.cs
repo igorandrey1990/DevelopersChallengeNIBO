@@ -51,6 +51,11 @@ namespace DevelopersChallengeNIBO.Services
             _OFXRecords.DeleteOne(book => book.Id == OFXRecord.Id);
         }
 
+        public void DeleteAll()
+        {
+            _OFXRecords.DeleteMany(OFXRecord => true);
+        }
+
         public void Remove(string id)
         {
             _OFXRecords.DeleteOne(OFXRecord => OFXRecord.Id == id);

@@ -1,4 +1,4 @@
-﻿
+﻿@addTagHelper *, Vereyon.Web.FlashMessage
 @{
     ViewData["Title"] = "UploadFile";
 }
@@ -6,6 +6,8 @@
 
 @using(Html.BeginForm("Import","OFXRecords", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
+    <flash dismissable="true" bootstrap-version="3"/>
+    <br />
     <div>
         @Html.TextBox("file", "", new {  type= "file"}) <br />
         <input type="submit" value="Upload" />

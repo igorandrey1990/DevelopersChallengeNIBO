@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="MongoDB.Bson" Version="2.14.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.14.1" />
+    <PackageReference Include="Vereyon.Web.FlashMessage" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

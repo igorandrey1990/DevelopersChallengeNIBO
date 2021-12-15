@@ -6,18 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Vereyon.Web;
 
 namespace DevelopersChallengeNIBO.Controllers
 {
     public class OFXRecordsController : Controller
     {
         private readonly IOFXRecordsService _OFXRecordsService;
-        private readonly IWebHostEnvironment _Envirnoment;
+        private readonly IFlashMessage _FlashMessage;
 
-        public OFXRecordsController(IOFXRecordsService OFXRecordsService, IWebHostEnvironment Enviroment)
+        public OFXRecordsController(IOFXRecordsService OFXRecordsService, IFlashMessage FlashMessage)
         {
             _OFXRecordsService = OFXRecordsService;
-            _Envirnoment = Enviroment;
+            _FlashMessage = FlashMessage;
         }
 
         public IActionResult Index()
@@ -25,6 +26,20 @@ namespace DevelopersChallengeNIBO.Controllers
             // Gets all records from DB
             List<OFXRecord> records = _OFXRecordsService.Get();
             return View(records);
+        }
+
+        public IActionResult DeleteAll()
+        {
+            try
+            {
+                _OFXRecordsService.DeleteAll();
+            }
+            catch (Exception ex)
+            {
+                return Content("There was an error: " + ex);
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult UploadFile()
@@ -38,9 +53,27 @@ namespace DevelopersChallengeNIBO.Controllers
             // Saves file path and calls import method from service then returns to Index view
             try
             {
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", file.FileName);
+                if (file == null)
+                {
+                    _FlashMessage.Warning("Please Select a File!");
+                    return RedirectToAction("UploadFile");
+                }
+
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "OFX Files", file.FileName);
+
+                if (System.IO.File.Exists(path))
+                {
+                    _FlashMessage.Warning("File already exists!");
+                    return RedirectToAction("UploadFile");
+                }
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyToAsync(fileStream);
+                }
+
                 _OFXRecordsService.ImportOFX(path);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return Content("There was an error: " + ex);
             }
